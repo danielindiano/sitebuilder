@@ -32,7 +32,7 @@ class SendOneSignalNotification
 
 		try {
 			$api->notifications->add($notification);
-
+			
 			return true;
 		} catch (OneSignalException $e) {
 			Logger::error(self::COMPONENT, 'push notification not sent', [
@@ -66,7 +66,7 @@ class SendOneSignalNotification
 		}
 
 		if ($banner) {
-			$notification['large_picture'] = $banner;
+			$notification['big_picture'] = $banner;
 		}
 
 		if ($icon) {
