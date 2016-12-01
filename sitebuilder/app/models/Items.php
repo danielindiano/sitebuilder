@@ -45,7 +45,8 @@ class Items extends \lithium\data\Model {
 		'type' => array('type' => 'string', 'null' => false),
 		'title' => array('type' => 'string', 'null' => false),
 		'thumbnails' => array('type' => 'array', 'default' => []),
-		'groups' => array('type' => 'array', 'default' => [])
+		'groups' => array('type' => 'array', 'default' => []),
+		'notification_id'=>array('type'=>'string', 'default' => ''),
 	);
 
 	protected $privateFields = ['groups'];

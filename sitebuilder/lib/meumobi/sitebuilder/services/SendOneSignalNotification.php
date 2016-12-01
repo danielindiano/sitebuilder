@@ -31,9 +31,9 @@ class SendOneSignalNotification
 		Logger::debug(self::COMPONENT, 'payload request', $notification);
 
 		try {
-			$api->notifications->add($notification);
+			$response = $api->notifications->add($notification);
 			
-			return true;
+			return [ 'notification_id' => $response['id'] ];
 		} catch (OneSignalException $e) {
 			Logger::error(self::COMPONENT, 'push notification not sent', [
 				'app' => $app,

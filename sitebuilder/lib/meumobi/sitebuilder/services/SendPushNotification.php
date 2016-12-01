@@ -73,7 +73,13 @@ class SendPushNotification
 			'parameters' => $notif,
 		]);
 
-		if ($service->perform($app, $notif)) {
+		$notification_response = $service->perform($app, $notif);
+
+		if ($notification_response !== false) {
+			if ($site->pushnotif_service=='onesignal' && isset($notification_response['notification_id'])){
+				$item->notification_id = $notification_response['notification_id'];
+				$item->save();
+			}
 			Logger::info(self::COMPONENT, 'push notification sent', $log);
 		}
 	}
