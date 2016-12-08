@@ -39,7 +39,7 @@ class ItemsController extends ApiController {
 		];
 
 		$url = "/api/{$this->site()->domain()}/categories/{$category->id}/items";
-		$url_params = ['category' => $category_id];
+		$url_params = $this->request->query;;
 
 		return $this->paginate($params, $url, $url_params);
 	}
@@ -376,13 +376,17 @@ class ItemsController extends ApiController {
 		$url_params['limit'] = $params['limit'];
 
 		if ($params['page'] > 1) {
-			$meta['previous'] = $this->parseUrl($url, $url_params + [
-				'page' => $params['page'] - 1]);
+			$meta['previous'] = $this->parseUrl($url, [
+				'page' => $params['page'] - 1
+				] + $url_params
+			);
 		}
 
 		if ($pages > $params['page']) {
-			$meta['next'] = $this->parseUrl($url, $url_params + [
-				'page' => $params['page'] + 1]);
+			$meta['next'] = $this->parseUrl($url, [
+				'page' => $params['page'] + 1
+				] + $url_params
+			);
 		}
 
 		if (!empty($meta)) $response['_meta'] = $meta;
