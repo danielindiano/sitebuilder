@@ -49,7 +49,8 @@ class UpdateNewsFeed
 				$shouldUpdate = $item->id() && (
 					$item->changed('title') ||
 					$item->changed('description') ||
-					$item->changed('medias')
+					$item->changed('medias') ||
+					$item->changed('published')
 				);
 
 				if ($shouldUpdate) {
