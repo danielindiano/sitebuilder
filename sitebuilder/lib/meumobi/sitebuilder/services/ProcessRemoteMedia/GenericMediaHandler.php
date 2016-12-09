@@ -104,7 +104,7 @@ class GenericMediaHandler
 			return $actualExt;
 		}
 
-		if (!empty($allowedExtensions[0])){
+		if (!empty($allowedExtensions[0])) {
 			return $allowedExtensions[0];			
 		}
 
