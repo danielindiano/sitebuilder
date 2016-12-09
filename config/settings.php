@@ -7,6 +7,9 @@ Config::write('Security.salt', 'a5d5d5be3c69dbc8b49e3342db0f8952f6328abd67076bf6
 Config::write('Mailer.transport', 'mail');
 
 Config::write('Sites.blacklist', array());
+Config::write('FileExtensions.blacklist', array(
+	'mpga', 'mp2', 'mp2a'
+));
 
 Config::write('PushWoosh.authToken', 'z8slYDk24hm2SJDIhzi6SBcdFPjCMU870gEH4wJ9WbzcdJsC6RBVl72r7k12b99yoHxZ39VDoOPYNsoLLtRk');
 Config::write('OneSignal.authToken', 'Yjk0ZGM0NjctOWE3MC00YTZkLWE2Y2UtMDdhYTVlODczZGE3');

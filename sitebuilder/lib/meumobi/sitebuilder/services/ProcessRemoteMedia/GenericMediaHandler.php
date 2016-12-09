@@ -2,6 +2,7 @@
 
 namespace meumobi\sitebuilder\services\ProcessRemoteMedia;
 
+use Config;
 use Filesystem;
 use Mimey\MimeTypes;
 use lithium\net\http\Response;
@@ -43,7 +44,7 @@ class GenericMediaHandler
 
 		$status = $response->status['code'];
 		$info['type'] = $this->getFileType($url, $response);
-		$info['extension'] = $this->getFileExtensionFromType($info['type']);
+		$info['extension'] = $this->getFileExtension($url, $info['type']);
 
 		if (($length = $response->headers('Content-Length')) > 1) {
 			$info['length'] = (int) $length;
@@ -60,7 +61,7 @@ class GenericMediaHandler
 	protected function getFileType($url, $response)
 	{
 		$type = null;
-
+		
 		if ($response->headers('Content-Type')) {
 			list($type) = explode(';', $response->headers('Content-Type'));
 		}
@@ -89,10 +90,25 @@ class GenericMediaHandler
 		return $mimes->getMimeType($extension);
 	}
 
-	protected function getFileExtensionFromType($type)
+	protected function getFileExtension($url, $type)
 	{
-		$mimes = new MimeTypes;
+		$actualExt = Filesystem::extension(basename($url));
 
-		return $mimes->getExtension($type);
+		$mimes = new MimeTypes;
+		$extensions = $mimes->getAllExtensions($type);
+		$blacklist = Config::read('FileExtensions.blacklist');
+		
+		$allowedExtensions = array_values(array_diff($extensions, $blacklist));
+
+		if (in_array($actualExt, $allowedExtensions)) {
+			return $actualExt;
+		}
+
+		if (!empty($allowedExtensions[0])){
+			return $allowedExtensions[0];			
+		}
+
+		return null;
+
 	}
 }
