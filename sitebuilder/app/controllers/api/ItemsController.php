@@ -39,7 +39,7 @@ class ItemsController extends ApiController {
 		];
 
 		$url = "/api/{$this->site()->domain()}/categories/{$category->id}/items";
-		$url_params = $this->request->query;;
+		$url_params = $this->request->query;
 
 		return $this->paginate($params, $url, $url_params);
 	}
