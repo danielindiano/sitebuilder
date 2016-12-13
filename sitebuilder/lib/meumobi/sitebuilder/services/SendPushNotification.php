@@ -76,7 +76,7 @@ class SendPushNotification
 		$notification_response = $service->perform($app, $notif);
 
 		if ($notification_response !== false) {
-			if ($site->pushnotif_service=='onesignal' && isset($notification_response['notification_id'])){
+			if ($site->pushnotif_service == 'onesignal' && isset($notification_response['notification_id'])) {
 				$item->notification_id = $notification_response['notification_id'];
 				$item->save();
 			}
